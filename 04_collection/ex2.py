@@ -6,28 +6,28 @@
 
 langs = ["c", "c++", "java", "python"]
 
-#                   # 끝에 추가
-# print(langs)
+langs.append("go")  # 끝에 추가
+print(langs)
 
-#                # 인덱스 2에 "c#" 추가
-# print(langs)
+langs.insert(2, "C#")  # 인덱스 2에 "c#" 추가
+print(langs)
 
-#              # 인덱스 3을 "javascript"로 변경
-# print(langs)
+langs[3] = "javascript"  # 인덱스 3을 "javascript"로 변경
+print(langs)
 
-#                  # "c++" 삭제 (첫번째 데이터만 삭제)
-# print(langs)
+langs.remove("c++")  # "c++" 삭제 (첫번째 데이터만 삭제)
+print(langs)
 
-#                         # 인덱스 1 삭제
-# print(langs)
+langs.pop(1)  # 인덱스 1 삭제
+print(langs)
 
-#                          # 인덱스 생략 시 마지막 항목 삭제
-# print(langs)
+langs.pop()  # 인덱스 생략 시 마지막 항목 삭제
+print(langs)
 
-# print()        # "python" 인덱스 찾기
+print(langs.index("python"))  # "python" 인덱스 찾기
 
-#                      # 리스트 순서를 거꾸로 뒤집기
-# print(langs)
+langs.reverse()  # 리스트 순서를 거꾸로 뒤집기
+print(langs)
 
 #                         # 오름차순 정렬
 # print(langs)
