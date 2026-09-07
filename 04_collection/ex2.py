@@ -29,24 +29,39 @@ print(langs.index("python"))  # "python" 인덱스 찾기
 langs.reverse()  # 리스트 순서를 거꾸로 뒤집기
 print(langs)
 
-#                         # 오름차순 정렬
-# print(langs)
+langs.sort()  # 오름차순 정렬
+print(langs)
 
-#             # 내림차순 정렬
-# print(langs)
+langs.sort(reverse=True)  # 내림차순 정렬
+print(langs)
 
-#                        # 모든 item 삭제
-# print(langs)
+langs.clear()  # 모든 item 삭제
+print(langs)
 
 # 리스트 복사
 ori = [1, 2, 3]
 
+result = ori.copy()
+result.append(10)
 
-# 얕은 복사(shallow copy) vs 깊은 복사(deep copy)
-ori = [[1, 2], [3, 4]]
+print(ori, result)
+
+# 얕은 복사(shallow copy) => 주솟값 복사(내용물 리스트의 주소가 같음) vs 깊은 복사(deep copy) => 아예 새로운 거
+ori = [[1, 2], [3, 4]]  # [100, 200]
+
+result = ori.copy()  # [100, 200]
+result[0].append(10)  # 원본도 바뀜
+
+print(ori, result)
 
 
 # 깊은 복사를 하려면?
+import copy
+
+result = copy.deepcopy(ori)
+result[0].append(100)  # 사본만 바뀜
+
+print(ori, result)
 
 
 # ===========================================================
@@ -56,18 +71,48 @@ ori = [[1, 2], [3, 4]]
 # 중첩리스트
 nested_list = [1, ["a", ["x", "y"], "b"], 2]
 
-# print(nested_list)         # x 출력하기
-# print(nested_list)            # b 출력하기
-# print(nested_list)               # 2 출력하기
+print(nested_list[1][1][0])  # x 출력하기
+print(nested_list[1][2])  # b 출력하기
+print(nested_list[2])  # 2 출력하기
 
 # 리스트 언패킹
+num = [1, 2, 3, 4]
 
+print(*num)
+
+a, b, c, d = num
+print(a, b, c, d)
+
+a, *b = num  # 확장 언패킹
+print(a, b)
+
+num2 = [5, 6]
+print(num + num2)
+
+# 언패킹을 이용해서 리스트 합치기
+print([*num, *num2])
 
 # zip함수: 반복 가능(iterable)한 여러 객체를 인자로 받아
 # 동일한 인덱스에 있는 원소들끼리 튜플로 묶어주는 파이썬 내장 함수
-subjects = ["국어", "수학", "영어"]
+subjects = ["국어", "수학", "영어", "과학"]
 scores = [80, 90, 95]
 
+print(zip(subjects, scores))
+
+a, b, c = zip(subjects, scores)  # strict로 안맞으면 오류나게 만들 수 있음, 거의 안씀
+print(a, b, c)
+
+for subject, score in zip(subjects, scores):
+    print(f"{subject}: {score}점")
+
+# [x]는 x 자체를 원소 하나로 해서 넣음
+print([zip(subjects, scores)])
+
+# list(x)는 x를 순회해서 리스트에 넣음
+print(list(zip(subjects, scores)))
+
+print(["python"])
+print(list("python"))
 
 # ===========================================================
 #  List Comprehension
