@@ -120,57 +120,74 @@ print(list("python"))
 # ===========================================================
 
 # 1 ~ 10의 제곱수 리스트 만들기
+result = []
+for i in range(1, 11):
+    result.append(i**2)
+print(result)
 
+
+result = [x**2 for x in range(1, 11)]
+print(result)
 
 # 1 ~ 10 중 짝수의 제곱수로 된 리스트 만들기 (필터링 if문 추가)
-
+# [4,16,36,64,100]
+result = [x**2 for x in range(1, 11) if x % 2 == 0]
+print(result)
 
 # 1 ~ 10 중 짝수면 "짝", 홀수면 "홀" 출력하기
-
+result = ["짝" if x % 2 == 0 else "홀" for x in range(1, 11)]
+print(result)
 
 # 각 이름의 길이로 이루어진 리스트 만들기
+names = ["pororo", "crong", "poby", "eddy"]
+result = [len(n) for n in names]
+print(result)
 
 
 # 길이가 5 이상인 이름만 뽑기
-
+result = [n for n in names if len(n) >= 5]
+print(result)
 
 # 중첩 for문도 가능
-
+result = [x * y for x in range(3) for y in range(3)]
+print(result)
 
 # =========================================================
 #  🔥 실습 문제
 # =========================================================
 
 # 1️⃣ 60점 이상인 점수만 뽑기
-# scores = [85, 42, 73, 55, 90, 68, 35, 100]
+scores = [85, 42, 73, 55, 90, 68, 35, 100]
 
-# result = []
-# print(result)                       # ✅ [85, 73, 90, 68, 100] 출력
+result = [n for n in scores if n >= 60]
+print(result)  # ✅ [85, 73, 90, 68, 100] 출력
 
 
 # 2️⃣ 60점 이상인 경우 "합격", 60점 미만은 "불합격"으로 처리
-# result = []
-# print(result)                       # ✅ ['합격', '불합격', '합격', '불합격', '합격', '합격', '불합격', '합격']
+result = ["합격" if x >= 60 else "불합격" for x in scores]
+print(
+    result
+)  # ✅ ['합격', '불합격', '합격', '불합격', '합격', '합격', '불합격', '합격']
 
 
 # 3️⃣ 1 ~ 100 중 3 또는 5의 배수의 합 구하기 (sum() 함수 이용)
-# result = None
-# print(result)                       # ✅ 2418 출력
+result = [x for x in range(1, 101) if x % 3 == 0 or x % 5 == 0]
+print(sum(result))  # ✅ 2418 출력
 
 
 # 4️⃣ n을 포함하고 있는 단어만 뽑기
-# words = ["apple", "banana", "kiwi", "mango"]
+words = ["apple", "banana", "kiwi", "mango"]
 
-# result = []
-# print(result)                       # ✅ ['banana', 'mango'] 출력
+result = [x for x in words if "n" in x]
+print(result)  # ✅ ['banana', 'mango'] 출력
 
 
 # 5️⃣ 세 학생의 3과목 점수표에서 과목별 평균 구하기
-# scores = [
-#     [90, 80, 70],       # 학생 1
-#     [100, 90, 80],      # 학생 2
-#     [80, 70, 60],       # 학생 3
-# ]
+scores = [
+    [90, 80, 70],  # 학생 1
+    [100, 90, 80],  # 학생 2
+    [80, 70, 60],  # 학생 3
+]
 
-# result = []
-# print(result)                       # ✅ [90.0, 80.0, 70.0]
+result = [sum(subject) / len(subject) for subject in zip(*scores)]
+print(result)  # ✅ [90.0, 80.0, 70.0]
