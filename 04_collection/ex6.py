@@ -118,6 +118,6 @@ print(stock)
 
 # 2) dict 컴프리헨션
 stock.update({item: stock.get(item, 0) + qty for item, qty in incoming.items()})
-prnit(result)
+print(result)
 
 # ✅ {'연필': 10, '지우개': 9, '노트': 10, '볼펜': 12}
