@@ -2,8 +2,8 @@
 
 # ===========================================================
 #  1. 예외 처리란?
-#  - (  ): 프로그램 실행 중에 발생하는 오류
-#  - (  ): 오류가 발생해도 프로그램이 비정상 종료되지 않도록
+#  - ( 예외 ): 프로그램 실행 중에 발생하는 오류
+#  - ( 예외 처리 ): 오류가 발생해도 프로그램이 비정상 종료되지 않도록
 #    미리 대비하여 처리하는 것
 #
 #  [오류의 종류]
@@ -19,12 +19,12 @@
 # ===========================================================
 
 # 아래 코드 예상 결과는?
-# print(10 / 0)                         # (  )
-# print([1, 2, 3][10])                  # (  )
-# print(int("abc"))                     # (  )
+# print(10 / 0)  # ( ZeroDivisionError )
+# print([1, 2, 3][10])  # ( IndexError )
+# print(int("abc"))  # ( ValueError )
 # d = {"a": 1}
-# print(d["b"])                         # (  )
-# print(1 + "2")                        # (  )
+# print(d["b"])  # ( KeyError )
+# print(1 + "2")  # ( TypeError )
 
 # -> 프로그램이 종료되지 않게 하려면 예상되는 오류는 처리하기
 
@@ -35,17 +35,18 @@
 #              예외가 발생할 수 있는 코드
 #          except:
 #              예외가 발생했을 때 실행할 코드
-#  - (  ) 블록에서 예외가 발생하면 나머지 코드는 건너뛰고
-#    (  ) 블록으로 이동한다.
+#  - ( try ) 블록에서 예외가 발생하면 나머지 코드는 건너뛰고
+#    ( except ) 블록으로 이동한다.
 #  - 예외가 발생하지 않으면 except 블록은 실행되지 않는다.
 # ===========================================================
 
-# num = int(input("숫자 => "))        # 예외 발생 가능한 코드
-# print(num)
-
+# try:
+#     num = int(input("숫자 => "))  # 예외 발생 가능한 코드
+#     print(10 / num)
+# except:
+#     print("숫자를 입력하세요")
 
 # print("프로그램 계속 진행")
-
 
 # ===========================================================
 #  3. 예외 종류별로 처리하기
@@ -64,9 +65,19 @@
 #  - 에러 메시지 확인하기: except 예외종류 as 변수명
 # ===========================================================
 
-# num = int(input("숫자 => "))        # 예외 발생 가능한 코드
-# result = 10 / num
-
+try:
+    num = int(input("숫자 => "))  # 예외 발생 가능한 코드
+    result = 10 / num
+except ValueError as e:
+    print("숫자를 입력하세요")
+    print(e)
+except ZeroDivisionError as e:
+    print("0으로 나눌 수 없습니다")
+    print(e)
+else:
+    print("결과: ", result)
+finally:
+    print("끝")
 
 # ===========================================================
 #  4. 예외 직접 발생시키기
@@ -75,11 +86,21 @@
 #  - raise로 발생시킨 예외도 try-except로 처리할 수 있다.
 # ===========================================================
 
-# age = -10
-# if age < 0:
-#     pass
-# print("나이 출력: ", age)
 
+def check_age(age):
+    try:
+        if age < 0:
+            raise ValueError("나이는 음수일 수 없습니다.")
+        print("나이 출력: ", age)
+    except ValueError as e:
+        print(e)
+        raise
+
+
+try:
+    check_age(-10)
+except ValueError as e:
+    print(e)
 
 # =========================================================
 #  🔥 실습 문제
@@ -92,15 +113,30 @@
 
 
 def calc(a, op, b):
-    pass
+    try:
+        a, b = int(a), int(b)
+    except ValueError:
+        raise ValueError("숫자를 입력하세요.")
+
+    if op == "+":
+        return a + b
+    elif op == "-":
+        return a - b
+    elif op == "*":
+        return a * b
+    elif op == "/":
+        if b == 0:
+            raise ZeroDivisionError("0으로 나눌 수 없습니다.")
+        return a / b
+    else:
+        raise ValueError(f"지원하지 않는 연산자({op})입니다.")
 
 
-# 2️⃣ 계산기 함수 호출 시 예외 처리하기
-# [실행 결과]
-#  - 15
-#  - 에러: 0으로 나눌 수 없습니다.
-#  - 에러: 지원하지 않는 연산자(%)입니다.
-#  - 에러: 숫자를 입력하세요.
-
+# 계산기 함수 호출 시 예외 처리하기
 for data in [("10", "+", "5"), ("10", "/", "0"), ("10", "%", "3"), ("ten", "+", "3")]:
-    pass
+    try:
+        print(calc(*data))
+    except ValueError as e:
+        print("에러:", e)
+    except ZeroDivisionError as e:
+        print("에러:", e)
